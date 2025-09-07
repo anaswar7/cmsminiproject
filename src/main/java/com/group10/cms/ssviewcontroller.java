@@ -58,6 +58,7 @@ public class ssviewcontroller {
                 img = new Image("file:" + rs.getString(2));
             } else {
                 img = new Image("file:src/main/resources/com/group10/cms/students/default.jpg");
+                //hello mf
             }
             profpic.setFill(new ImagePattern(img));
         } catch (SQLException e) {
