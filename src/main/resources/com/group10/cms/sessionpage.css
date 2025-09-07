@@ -1,0 +1,11 @@
+
+
+
+.sessionpagewelcomebg {
+    -fx-background-image: url("sessionpage1.jpg");
+    -fx-background-size: 100% 100%;
+}
+
+#welcome {
+    -fx-font-family: 'Raleway Bold Italic';
+}

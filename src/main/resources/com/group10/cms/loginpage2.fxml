@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<GridPane prefHeight="557.0" prefWidth="569.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group10.cms.loginpagecontroller">
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+  </columnConstraints>
+  <rowConstraints>
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <Label fx:id="loginpagelabel1" prefHeight="31.0" prefWidth="280.0" style="-fx-font-family: Century Gothic; -fx-text-fill: #31F527;" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label alignment="TOP_LEFT" prefHeight="63.0" prefWidth="769.0" text="ADMIN PAGE" textFill="#4692bd" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.hgrow="NEVER" GridPane.rowSpan="2" GridPane.valignment="TOP" GridPane.vgrow="NEVER">
+         <font>
+            <Font name="System Bold Italic" size="41.0" />
+         </font>
+         <padding>
+            <Insets left="20.0" top="10.0" />
+         </padding>
+      </Label>
+      <Label alignment="TOP_LEFT" prefHeight="35.0" prefWidth="125.0" text="USERNAME :" GridPane.columnSpan="2" GridPane.rowIndex="1">
+         <font>
+            <Font name="System Bold" size="19.0" />
+         </font>
+         <GridPane.margin>
+            <Insets bottom="25.0" left="60.0" />
+         </GridPane.margin>
+      </Label>
+      <PasswordField fx:id="usernamead" alignment="TOP_LEFT" onKeyPressed="#nextfield" onMouseClicked="#clearlabel1" prefHeight="28.0" prefWidth="251.0" style="-fx-border-color: #4692bd;" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.hgrow="NEVER" GridPane.rowIndex="1">
+         <GridPane.margin>
+            <Insets bottom="30.0" left="60.0" right="40.0" />
+         </GridPane.margin>
+      </PasswordField>
+      <Label prefHeight="25.0" prefWidth="119.0" text="PASSWORD :" GridPane.columnSpan="2" GridPane.rowIndex="1">
+         <font>
+            <Font name="System Bold" size="19.0" />
+         </font>
+         <GridPane.margin>
+            <Insets left="60.0" top="160.0" />
+         </GridPane.margin>
+      </Label>
+      <PasswordField fx:id="passwordad" onAction="#credentials" onMouseClicked="#clearlabel1" prefHeight="0.0" prefWidth="0.0" style="-fx-border-color: #4692bd;" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.hgrow="NEVER" GridPane.rowIndex="2">
+         <GridPane.margin>
+            <Insets bottom="140.0" left="60.0" right="40.0" top="20.0" />
+         </GridPane.margin>
+      </PasswordField>
+      <Line endX="9999.0" endY="-1.4483928680419922E-5" nodeOrientation="LEFT_TO_RIGHT" smooth="false" GridPane.hgrow="NEVER" />
+   </children>
+</GridPane>

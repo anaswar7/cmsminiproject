@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="543.0" prefWidth="559.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group10.cms.loginpagecontroller">
+   <children>
+      <Line endX="451.0" endY="1.1444091796875E-5" layoutX="108.0" layoutY="55.0" startX="-108.0000228881836" startY="1.1444091796875E-5" />
+      <PasswordField fx:id="passwordad" layoutX="244.0" layoutY="314.0" onAction="#credentials" onMouseClicked="#clearlabel1" prefHeight="25.0" prefWidth="215.0" style="-fx-border-color: #4692bd;" />
+      <PasswordField fx:id="usernamead" layoutX="244.0" layoutY="227.0" onAction="#credentials" onMouseClicked="#clearlabel1" prefHeight="25.0" prefWidth="215.0" style="-fx-border-color: #4692bd;" />
+      <Label layoutX="108.0" layoutY="226.0" prefHeight="25.0" prefWidth="119.0" text="USERNAME :">
+         <font>
+            <Font name="System Bold" size="19.0" />
+         </font>
+      </Label>
+      <Label layoutX="108.0" layoutY="313.0" prefHeight="28.0" prefWidth="119.0" text="PASSWORD :">
+         <font>
+            <Font name="System Bold" size="19.0" />
+         </font>
+      </Label>
+      <Label layoutX="17.0" layoutY="-13.0" prefHeight="85.0" prefWidth="467.0" text="ADMIN PAGE" textFill="#4692bd">
+         <font>
+            <Font name="System Bold Italic" size="41.0" />
+         </font>
+      </Label>
+      <Label fx:id="loginpagelabel1" layoutX="168.0" layoutY="398.0" prefHeight="37.0" prefWidth="285.0" style="-fx-font-family: Century Gothic; -fx-text-fill: #31F527;">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
