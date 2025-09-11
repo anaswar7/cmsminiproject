@@ -36,7 +36,7 @@ class admin {
     public String studentadd(String regno,String name,int rollno,String course,String semester,String dob,String address) {
         try {
             Statement stmt = this.stmt;
-            int rows = stmt.executeUpdate(String.format("insert into student values('%s','%s',%d,'%s','%s','%s','%s');",regno,name,rollno,course,semester,dob,address));
+            int rows = stmt.executeUpdate(String.format("insert into student(regno,name,rollno,course,semester,dob,address) values('%s','%s',%d,'%s','%s','%s','%s');",regno,name,rollno,course,semester,dob,address));
             return "";
         } catch (SQLException e) {
             e.printStackTrace();
@@ -46,6 +46,17 @@ class admin {
                 return fullMessage.substring(colonIndex + 2);
             }
             return fullMessage;
+        }
+    }
+
+    public String updatestudent(String s) {
+        try {
+            Statement stmt = this.stmt;
+            int rs = stmt.executeUpdate(s);
+            return "";
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return e.toString();
         }
     }
 
