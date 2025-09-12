@@ -15,6 +15,18 @@ class admin {
         try {
             this.connection = DriverManager.getConnection(this.url, this.user, this.password);
             this.stmt = connection.createStatement();
+            String sql = "CREATE TABLE IF NOT EXISTS student ("
+                    + "regno VARCHAR(20),"
+                    + "name VARCHAR(50),"
+                    + "rollno INT,"
+                    + "course VARCHAR(20),"
+                    + "semester VARCHAR(2),"
+                    + "dob VARCHAR(12),"
+                    + "address VARCHAR(100),"
+                    + "profpic VARCHAR(300)"
+                    + ")";
+
+            this.stmt.executeUpdate(sql);
         } catch (SQLException e) {
             e.printStackTrace();
         }
