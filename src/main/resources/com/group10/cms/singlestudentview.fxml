@@ -96,5 +96,10 @@
       <ImageView fx:id="addressi" fitHeight="25.0" fitWidth="32.0" layoutX="14.0" layoutY="504.0" onMouseClicked="#edit" pickOnBounds="true" preserveRatio="true" />
       <Button fx:id="deletebut" layoutX="785.0" layoutY="63.0" mnemonicParsing="false" onAction="#delete" text="DELETE PROFILE" textFill="#be0c0c" />
       <Button layoutX="810.0" layoutY="714.0" mnemonicParsing="false" onAction="#goback" text="Go back" />
+      <Text fx:id="namemain" layoutX="325.0" layoutY="258.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="303.99995930989576">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>

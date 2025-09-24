@@ -22,54 +22,58 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ResourceBundle;
 
-public class studentviewcontroller implements Initializable {
+public class facultyviewcontroller implements Initializable {
     @FXML
-    TableView<stud> table;
+    TableView<Faculty> table;
     @FXML
-    TableColumn<stud,String> regno;
+    TableColumn<Faculty, String> staffId;
     @FXML
-    TableColumn<stud,String> name;
+    TableColumn<Faculty, String> name;
     @FXML
-    TableColumn<stud,Integer> rollno;
+    TableColumn<Faculty, String> dob;
     @FXML
-    TableColumn<stud,String> course;
+    TableColumn<Faculty, String> branch;
     @FXML
-    TableColumn<stud,String> semester;
-    @FXML
-    TableColumn<stud,String> dob;
+    TableColumn<Faculty, String> subject;
+
+
     String admname;
     @FXML
     TextField ftext = new TextField();
     @FXML
     MenuItem fname = new MenuItem();
-    @FXML MenuItem fcourse = new MenuItem();
+    @FXML
+    MenuItem fbranch = new MenuItem();
     String filter;
-    @FXML CheckBox mc = new CheckBox();
-    @FXML Button back = new Button();
+    @FXML
+    CheckBox mc = new CheckBox();
+    @FXML
+    Button back = new Button();
     Image backimg = new Image("file:src/main/resources/com/group10/cms/images/goback.png");
     ImageView backimgv = new ImageView(backimg);
 
-    ObservableList<stud> list = FXCollections.observableArrayList(
-            );
+    ObservableList<Faculty> list = FXCollections.observableArrayList(
+    );
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        regno.setCellValueFactory(new PropertyValueFactory<stud,String>("regno"));
-        name.setCellValueFactory(new PropertyValueFactory<stud,String>("name"));
-        rollno.setCellValueFactory(new PropertyValueFactory<stud,Integer>("rollno"));
-        course.setCellValueFactory(new PropertyValueFactory<stud,String>("course"));
-        semester.setCellValueFactory(new PropertyValueFactory<stud,String>("semester"));
-        dob.setCellValueFactory(new PropertyValueFactory<stud,String>("dob"));
+        staffId.setCellValueFactory(new PropertyValueFactory<Faculty, String>("staffId"));
+        name.setCellValueFactory(new PropertyValueFactory<Faculty, String>("name"));
+        dob.setCellValueFactory(new PropertyValueFactory<Faculty, String>("dob"));
+        branch.setCellValueFactory(new PropertyValueFactory<Faculty, String>("branch"));
+        subject.setCellValueFactory(new PropertyValueFactory<Faculty, String>("subject"));
+
+
+
         admin ad = new admin();
         try {
-            ResultSet rs = ad.studentfetch("select * from student;");
+            ResultSet rs = ad.studentfetch("select * from faculty;");
             while (rs.next()) {
-                list.add(new stud(rs.getString(1), rs.getString(2), rs.getInt(3),
-                        rs.getString(4),rs.getString(5), rs.getString(6)));
+                list.add(new Faculty(rs.getString(1), rs.getString(2), rs.getString(3),
+                        rs.getString(4), rs.getString(5)));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -80,16 +84,15 @@ public class studentviewcontroller implements Initializable {
         table.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ENTER) {
                 try {
-
-                stud selrec = table.getSelectionModel().getSelectedItem();
-                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                FXMLLoader root = new FXMLLoader(getClass().getResource("singlestudentview.fxml"));
-                Scene scene = new Scene(root.load());
-                stage.setScene(scene);
-                ssviewcontroller controller = root.getController();
-                controller.initData(admname,selrec);
-                stage.show();
-                stage.centerOnScreen();
+                    Faculty selrec = table.getSelectionModel().getSelectedItem();
+                    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    FXMLLoader root = new FXMLLoader(getClass().getResource("singlefacultyview.fxml"));
+                    Scene scene = new Scene(root.load());
+                    stage.setScene(scene);
+                    sfviewcontroller controller = root.getController();
+                    controller.initData(admname, selrec);
+                    stage.show();
+                    stage.centerOnScreen();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -109,7 +112,7 @@ public class studentviewcontroller implements Initializable {
 
     public void goback(ActionEvent e) {
         try {
-            Stage stage = (Stage)((Node)e.getSource()).getScene().getWindow();
+            Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
             FXMLLoader root = new FXMLLoader(getClass().getResource("sessionpage.fxml"));
             Scene scene = new Scene(root.load());
             sessionpagecontroller controller = root.getController();
@@ -123,21 +126,21 @@ public class studentviewcontroller implements Initializable {
     }
 
     public void filter(String filtercol) {
-        ObservableList<stud> list2 = FXCollections.observableArrayList(
+        ObservableList<Faculty> list2 = FXCollections.observableArrayList(
         );
-        ftext.textProperty().addListener((Observable,oldValue,newValue)-> {
+        ftext.textProperty().addListener((Observable, oldValue, newValue) -> {
             admin ad = new admin();
             try {
                 ResultSet rs;
                 list2.clear();
                 if (mc.isSelected()) {
-                    rs = ad.studentfetch(String.format("select * from student where %s like '%%%s%%';",filtercol,newValue));
+                    rs = ad.studentfetch(String.format("select * from faculty where %s like '%%%s%%';", filtercol, newValue));
                 } else {
-                    rs = ad.studentfetch(String.format("select * from student where %s like '%s%%';", filtercol, newValue));
+                    rs = ad.studentfetch(String.format("select * from faculty where %s like '%s%%';", filtercol, newValue));
                 }
                 while (rs.next()) {
-                    list2.add(new stud(rs.getString(1), rs.getString(2), rs.getInt(3),
-                            rs.getString(4),rs.getString(5), rs.getString(6)));
+                    list2.add(new Faculty(rs.getString(1), rs.getString(2), rs.getString(3),
+                            rs.getString(4), rs.getString(5)));
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -164,5 +167,4 @@ public class studentviewcontroller implements Initializable {
         filter = but.getText();
         filter(filter);
     }
-
 }

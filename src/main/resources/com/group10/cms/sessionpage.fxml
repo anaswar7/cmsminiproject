@@ -2,53 +2,88 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="844.0" prefWidth="954.0" stylesheets="@sessionpage.css" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group10.cms.sessionpagecontroller">
+<StackPane fx:id="sp" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group10.cms.sessionpagecontroller">
    <children>
-      <Line endX="853.0" endY="7.62939453125E-6" layoutX="101.0" layoutY="109.0" startX="-100.0" />
-      <Text fx:id="wwyl" layoutX="93.0" layoutY="153.0" strokeType="OUTSIDE" strokeWidth="0.0" text="What would you like to do today?">
-         <font>
-            <Font name="Cambria" size="17.0" />
-         </font>
-      </Text>
-      <Text fx:id="regnolab" disable="true" layoutX="495.0" layoutY="162.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Regno" visible="false" />
-      <TextField fx:id="regno" disable="true" layoutX="547.0" layoutY="145.0" onAction="#studentdets" visible="false" />
-      <Text fx:id="namelab" disable="true" layoutX="495.0" layoutY="209.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" visible="false" />
-      <Text fx:id="rollnolab" disable="true" layoutX="494.0" layoutY="256.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rollno" visible="false" />
-      <Text fx:id="courselab" disable="true" layoutX="492.0" layoutY="298.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Course" visible="false" />
-      <Text fx:id="semesterlab" disable="true" layoutX="488.0" layoutY="343.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Semester" visible="false" />
-      <Text fx:id="doblab" disable="true" layoutX="500.0" layoutY="387.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DOB" visible="false" />
-      <Text fx:id="addresslab" disable="true" layoutX="489.0" layoutY="435.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Address" visible="false" />
-      <TextField fx:id="name" disable="true" layoutX="547.0" layoutY="192.0" onAction="#studentdets" visible="false" />
-      <TextField fx:id="rollno" disable="true" layoutX="547.0" layoutY="239.0" onAction="#studentdets" visible="false" />
-      <TextField fx:id="course" disable="true" layoutX="547.0" layoutY="281.0" onAction="#studentdets" visible="false" />
-      <TextField fx:id="semester" disable="true" layoutX="547.0" layoutY="326.0" onAction="#studentdets" visible="false" />
-      <TextField fx:id="dob" disable="true" layoutX="547.0" layoutY="370.0" onAction="#studentdets" visible="false" />
-      <TextField fx:id="address" disable="true" layoutX="547.0" layoutY="418.0" onAction="#studentdets" visible="false" />
-      <Button fx:id="addstudents" layoutX="216.0" layoutY="217.0" mnemonicParsing="false" onAction="#addstudent" prefHeight="25.0" prefWidth="110.0" text="Add students">
-         <font>
-            <Font name="Cambria" size="12.0" />
-         </font></Button>
-      <Text fx:id="empty" layoutX="449.0" layoutY="610.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="494.809783935547" />
-      <Text fx:id="successful" fill="#0fd478" layoutX="430.0" layoutY="235.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Successfully added!" visible="false" wrappingWidth="194.34674072265625">
-         <font>
-            <Font size="21.0" />
-         </font>
-      </Text>
-      <Button layoutX="216.0" layoutY="288.0" mnemonicParsing="false" onAction="#viewstudents" prefHeight="25.0" prefWidth="110.0" text="View students" />
-      <AnchorPane fx:id="pane1" layoutX="-7.0" layoutY="-1.0" prefHeight="113.0" prefWidth="964.0" styleClass="sessionpagewelcomebg">
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="844.0" prefWidth="954.0" stylesheets="@sessionpage.css">
          <children>
-            <Button layoutX="826.0" layoutY="42.0" mnemonicParsing="false" onAction="#logout" prefHeight="35.0" prefWidth="74.0" text="Logout" />
-            <Text fx:id="welcome" fill="#19608d" layoutX="42.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome" wrappingWidth="327.01341247558594">
+            <Line endX="853.0" endY="7.62939453125E-6" layoutX="101.0" layoutY="109.0" startX="-100.0" />
+            <Text fx:id="wwyl" layoutX="93.0" layoutY="153.0" strokeType="OUTSIDE" strokeWidth="0.0" text="What would you like to do today?">
                <font>
-                  <Font size="29.0" />
+                  <Font name="Cambria" size="17.0" />
                </font>
             </Text>
+            <Text fx:id="regnolab" disable="true" layoutX="495.0" layoutY="162.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Regno" visible="false" />
+            <TextField fx:id="regno" disable="true" layoutX="547.0" layoutY="145.0" onAction="#studentdets" visible="false" />
+            <Text fx:id="namelab" disable="true" layoutX="495.0" layoutY="209.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" visible="false" />
+            <Text fx:id="rollnolab" disable="true" layoutX="494.0" layoutY="256.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rollno" visible="false" />
+            <Text fx:id="courselab" disable="true" layoutX="492.0" layoutY="298.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Course" visible="false" />
+            <Text fx:id="semesterlab" disable="true" layoutX="488.0" layoutY="343.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Semester" visible="false" />
+            <Text fx:id="doblab" disable="true" layoutX="477.0" layoutY="392.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DOB" visible="false" />
+            <Text fx:id="addresslab" disable="true" layoutX="489.0" layoutY="435.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Address" visible="false" />
+            <TextField fx:id="name" disable="true" layoutX="547.0" layoutY="192.0" onAction="#studentdets" visible="false" />
+            <TextField fx:id="rollno" disable="true" layoutX="547.0" layoutY="239.0" onAction="#studentdets" visible="false" />
+            <TextField fx:id="course" disable="true" layoutX="547.0" layoutY="281.0" onAction="#studentdets" visible="false" />
+            <TextField fx:id="semester" disable="true" layoutX="547.0" layoutY="326.0" onAction="#studentdets" visible="false" />
+            <TextField fx:id="dob" disable="true" layoutX="547.0" layoutY="370.0" onAction="#studentdets" visible="false" />
+            <TextField fx:id="address" disable="true" layoutX="547.0" layoutY="418.0" onAction="#studentdets" visible="false" />
+            <Text fx:id="empty" layoutX="449.0" layoutY="610.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="494.809783935547" />
+            <Text fx:id="successful" fill="#0fd478" layoutX="430.0" layoutY="235.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Successfully added!" visible="false" wrappingWidth="194.34674072265625">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </Text>
+            <AnchorPane fx:id="pane1" layoutX="-7.0" layoutY="-1.0" prefHeight="113.0" prefWidth="964.0" styleClass="sessionpagewelcomebg">
+               <children>
+                  <Button layoutX="826.0" layoutY="42.0" mnemonicParsing="false" onAction="#logout" prefHeight="35.0" prefWidth="74.0" text="Logout" />
+                  <Text fx:id="welcome" fill="#19608d" layoutX="42.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome" wrappingWidth="327.01341247558594">
+                     <font>
+                        <Font size="29.0" />
+                     </font>
+                  </Text>
+               </children>
+            </AnchorPane>
+            <ImageView fx:id="banner_addstud" fitHeight="89.0" fitWidth="207.0" layoutX="103.0" layoutY="196.0" onMouseClicked="#addstudent" onMouseEntered="#hover" onMouseExited="#hoverlose" pickOnBounds="true" preserveRatio="true" />
+            <Text fx:id="addstud" layoutX="156.0" layoutY="244.0" onMouseClicked="#addstudent" onMouseEntered="#hover" strokeType="OUTSIDE" strokeWidth="0.0" text="Add Students" wrappingWidth="93.0065002441404">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Text>
+            <ImageView fx:id="banner_viewstud" fitHeight="89.0" fitWidth="200.0" layoutX="103.0" layoutY="320.0" onMouseClicked="#viewstudents" onMouseEntered="#hover" onMouseExited="#hoverlose" pickOnBounds="true" preserveRatio="true" />
+            <Text fx:id="viewstud" layoutX="156.0" layoutY="369.0" onMouseClicked="#viewstudents" onMouseEntered="#hover" strokeType="OUTSIDE" strokeWidth="0.0" text="View Students" wrappingWidth="93.0065002441404">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Text>
+            <ImageView fx:id="banner_viewfac" fitHeight="89.0" fitWidth="200.0" layoutX="103.0" layoutY="578.0" onMouseClicked="#viewfaculty" onMouseEntered="#hover" onMouseExited="#hoverlose" pickOnBounds="true" preserveRatio="true" />
+            <Text fx:id="viewfac" layoutX="156.0" layoutY="627.0" onMouseClicked="#viewfaculty" onMouseEntered="#hover" strokeType="OUTSIDE" strokeWidth="0.0" text="View Faculty">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Text>
+            <ImageView fx:id="banner_addfac" fitHeight="89.0" fitWidth="194.0" layoutX="106.0" layoutY="438.0" onMouseClicked="#addfac" onMouseEntered="#hover" onMouseExited="#hoverlose" pickOnBounds="true" preserveRatio="true" />
+            <Text fx:id="addfac" layoutX="156.0" layoutY="488.0" onMouseClicked="#addfac" onMouseEntered="#hover" strokeType="OUTSIDE" strokeWidth="0.0" text="Add Faculty">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Text>
+            <Text fx:id="fstaffidlab" disable="true" layoutX="505.0" layoutY="172.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Staff ID" visible="false" />
+            <Text fx:id="fnamelab" disable="true" layoutX="505.0" layoutY="219.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" visible="false" />
+            <Text fx:id="fdoblab" disable="true" layoutX="502.0" layoutY="308.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DOB" visible="false" />
+            <Text fx:id="fbranchlab" disable="true" layoutX="498.0" layoutY="353.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Branch" visible="false" />
+            <Text fx:id="fsubjectlab" disable="true" layoutX="501.0" layoutY="400.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Subject" visible="false" />
+            <TextField fx:id="fstaffid" disable="true" layoutX="557.0" layoutY="155.0" onAction="#facultydets" visible="false" />
+            <TextField fx:id="fname" disable="true" layoutX="557.0" layoutY="202.0" onAction="#facultydets" visible="false" />
+            <TextField fx:id="fdob" disable="true" layoutX="557.0" layoutY="291.0" onAction="#facultydets" visible="false" />
+            <TextField fx:id="fbranch" disable="true" layoutX="557.0" layoutY="336.0" onAction="#facultydets" visible="false" />
+            <TextField fx:id="fsubject" disable="true" layoutX="557.0" layoutY="380.0" onAction="#facultydets" visible="false" />
          </children>
       </AnchorPane>
    </children>
-</AnchorPane>
+</StackPane>

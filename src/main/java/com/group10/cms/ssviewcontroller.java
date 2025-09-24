@@ -31,6 +31,7 @@ public class ssviewcontroller {
     @FXML TextField dobf = new TextField();
     @FXML Text regno= new Text();
     @FXML Text name = new Text();
+    @FXML Text namemain = new Text();
     @FXML Text rollno = new Text();
     @FXML Text course = new Text();
     @FXML Text semester = new Text();
@@ -78,6 +79,7 @@ public class ssviewcontroller {
         admname = s;
         regno.setText(student.regno);
         name.setText(student.name);
+        namemain.setText(student.name);
         rollno.setText(Integer.toString(student.rollno));
         course.setText(student.course);
         semester.setText(student.semester);

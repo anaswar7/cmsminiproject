@@ -1,0 +1,9 @@
+.hover-darken-button {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+
+.hover-darken-button:hover .image-view {
+    -fx-opacity: 0.8;
+}

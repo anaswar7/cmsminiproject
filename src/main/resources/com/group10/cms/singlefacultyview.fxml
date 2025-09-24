@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="844.0" prefWidth="954.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group10.cms.sfviewcontroller">
+    <children>
+        <Circle fx:id="profpic" fill="DODGERBLUE" layoutX="477.0" layoutY="131.0" radius="100.0" stroke="BLACK" strokeType="INSIDE" />
+
+        <Text layoutX="55.0" layoutY="357.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Staff ID  : " wrappingWidth="73.33333333333348">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Text>
+
+        <Text layoutX="61.0" layoutY="401.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name   : ">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Text>
+
+        <Text layoutX="58.0" layoutY="445.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DOB      :">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Text>
+
+        <Text layoutX="625.0" layoutY="356.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Branch  : ">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Text>
+
+        <Text layoutX="626.0" layoutY="403.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Subject : ">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Text>
+
+        <TextField fx:id="staffidf" disable="true" layoutX="177.0" layoutY="339.0" onAction="#editfin" visible="false" />
+        <TextField fx:id="namef" disable="true" layoutX="177.0" layoutY="385.0" onAction="#editfin" visible="false" />
+        <TextField fx:id="dobf" disable="true" layoutX="177.0" layoutY="427.0" onAction="#editfin" visible="false" />
+
+        <TextField fx:id="branchf" disable="true" layoutX="710.0" layoutY="338.0" onAction="#editfin" visible="false" />
+        <TextField fx:id="subjectf" disable="true" layoutX="704.0" layoutY="385.0" onAction="#editfin" visible="false" />
+
+        <Text fx:id="staffid" layoutX="203.0" layoutY="357.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" visible="false">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Text>
+        <Text fx:id="name" layoutX="205.0" layoutY="403.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" visible="false">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Text>
+        <Text fx:id="dob" layoutX="205.0" layoutY="444.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" visible="false">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Text>
+
+        <Text fx:id="branch" layoutX="710.0" layoutY="356.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" visible="false">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Text>
+        <Text fx:id="subject" layoutX="712.0" layoutY="402.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" visible="false">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Text>
+
+        <ImageView fx:id="staffidi" fitHeight="25.0" fitWidth="32.0" layoutX="23.0" layoutY="339.0" onMouseClicked="#edit" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="namei" fitHeight="25.0" fitWidth="32.0" layoutX="29.0" layoutY="385.0" onMouseClicked="#edit" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="dobi" fitHeight="25.0" fitWidth="32.0" layoutX="29.0" layoutY="427.0" onMouseClicked="#edit" pickOnBounds="true" preserveRatio="true" />
+
+        <ImageView fx:id="branchi" fitHeight="25.0" fitWidth="32.0" layoutX="594.0" layoutY="339.0" onMouseClicked="#edit" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="subjecti" fitHeight="25.0" fitWidth="32.0" layoutX="594.0" layoutY="385.0" onMouseClicked="#edit" pickOnBounds="true" preserveRatio="true" />
+
+        <Button fx:id="deletebut" layoutX="785.0" layoutY="63.0" mnemonicParsing="false" onAction="#delete" text="DELETE PROFILE" textFill="#be0c0c" />
+        <Button layoutX="810.0" layoutY="714.0" mnemonicParsing="false" onAction="#goback" text="Go back" />
+      <Text fx:id="namemain" layoutX="328.0" layoutY="258.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Johnny Thekkoot" textAlignment="CENTER" wrappingWidth="297.2255859375">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Text>
+    </children>
+</AnchorPane>

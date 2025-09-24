@@ -11,5 +11,7 @@ module com.group10.cms {
     requires java.sql;
 
     opens com.group10.cms to javafx.fxml;
+    opens com.group10.cms.student to javafx.fxml;
     exports com.group10.cms;
+    exports com.group10.cms.student;
 }

@@ -61,6 +61,22 @@ class admin {
         }
     }
 
+    public String facultyadd(String staffid,String name,String dob,String branch,String subject) {
+        try {
+            Statement stmt = this.stmt;
+            int rows = stmt.executeUpdate(String.format("insert into faculty(staff_id,name,dob,branch,subject) values('%s','%s','%s','%s','%s');",staffid,name,dob,branch,subject));
+            return "";
+        } catch (SQLException e) {
+            e.printStackTrace();
+            String fullMessage = e.toString();
+            int colonIndex = fullMessage.indexOf(": ");
+            if (colonIndex != -1 && colonIndex < fullMessage.length() - 2) {
+                return fullMessage.substring(colonIndex + 2);
+            }
+            return fullMessage;
+        }
+    }
+
     public String updatestudent(String s) {
         try {
             Statement stmt = this.stmt;
