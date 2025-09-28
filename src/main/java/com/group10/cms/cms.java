@@ -16,7 +16,7 @@ class admin {
             this.connection = DriverManager.getConnection(this.url, this.user, this.password);
             this.stmt = connection.createStatement();
             String sql = "CREATE TABLE IF NOT EXISTS student ("
-                    + "regno VARCHAR(20),"
+                    + "regno VARCHAR(20) PRIMARY KEY,"
                     + "name VARCHAR(50),"
                     + "rollno INT,"
                     + "course VARCHAR(20),"
@@ -27,6 +27,61 @@ class admin {
                     + ")";
 
             this.stmt.executeUpdate(sql);
+            sql = "CREATE TABLE IF NOT EXISTS Subjects ("
+                    + "subject_code VARCHAR(20) PRIMARY KEY,"
+                    + "subject_name VARCHAR(100),"
+                    + "semester VARCHAR(5),"
+                    + "course VARCHAR(50),"
+                    + "credits INT"
+                    + ")";
+
+            this.stmt.executeUpdate(sql);
+
+            sql = "CREATE TABLE IF NOT EXISTS Marks ("
+                    + "mark_id INT PRIMARY KEY AUTO_INCREMENT,"
+                    + "regno VARCHAR(20),"
+                    + "subject_code VARCHAR(20),"
+                    + "exam_type ENUM('Internal1','Internal2','External'),"
+                    + "marks_obtained DECIMAL(5,2),"
+                    + "max_marks DECIMAL(5,2),"
+                    + "FOREIGN KEY (regno) REFERENCES student(regno),"
+                    + "FOREIGN KEY (subject_code) REFERENCES Subjects(subject_code),"
+                    + "UNIQUE (regno, subject_code, exam_type)"
+                    + ")";
+
+            this.stmt.executeUpdate(sql);
+            sql = "SELECT COUNT(*) AS count FROM Subjects";
+            ResultSet rs = stmt.executeQuery(sql);
+            if (rs.next() && rs.getInt("count") == 0) {
+                System.out.println("Inserting default subjects for B.Tech CSE Semester 3 (2024-2028)...");
+
+                String[][] subjects = {
+                        {"GAMAT301", "Mathematics for Information Science-3", "S3", "CSE", "3"},
+                        {"PCCST302", "Theory of Computation", "S3", "CSE", "4"},
+                        {"PCCST303", "Data Structures and Algorithms", "S3", "CSE", "4"},
+                        {"PBCST304", "Object Oriented Programming", "S3", "CSE", "4"},
+                        {"GAEST305", "Digital Electronics & Logic Design", "S3", "CSE", "4"},
+                        {"UCHUT346", "Economics for Engineers", "S3", "CSE", "2"}
+                };
+
+                PreparedStatement ps = connection.prepareStatement(
+                        "INSERT INTO Subjects (subject_code, subject_name, semester, course, credits) VALUES (?, ?, ?, ?, ?)"
+                );
+
+                for (String[] sub : subjects) {
+                    ps.setString(1, sub[0]);
+                    ps.setString(2, sub[1]);
+                    ps.setString(3, sub[2]);
+                    ps.setString(4, sub[3]);
+                    ps.setInt(5, Integer.parseInt(sub[4]));
+                    ps.executeUpdate();
+                }
+
+                ps.close();
+                System.out.println("Subjects inserted successfully!");
+
+            }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -98,6 +153,7 @@ class admin {
             return null;
         }
     }
+
 
     public void admain() {
         Scanner sc = new Scanner(System.in);

@@ -1,11 +1,14 @@
 package com.group10.cms;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -63,6 +66,19 @@ public class ssviewcontroller {
     @FXML
     Circle profpic = new Circle();
 
+    @FXML
+    TableView<Marks> table;
+    @FXML TableColumn<Marks,String> subcol;
+    @FXML TableColumn<Marks,String> marcol;
+    @FXML TableColumn<Marks,String> subcodecol;
+    @FXML MenuButton semfilter = new MenuButton();
+    @FXML MenuButton examfilter = new MenuButton();
+
+    ObservableList<Marks> list = FXCollections.observableArrayList();
+    String[] exams;
+    Integer[] examval;
+    int index;
+    @FXML Text sgpa = new Text();
 
     public void initialize() {
         columns = new String[]{"regno","name","rollno","course","semester","dob","address"};
@@ -73,7 +89,10 @@ public class ssviewcontroller {
         for (ImageView attributeimage : attributeimages ) {
             attributeimage.setImage(img);
         }
+        exams = new String[]{"Internal1","Internal2","External"};
+        examval = new Integer[]{0,0,0};
     }
+
 
     public void initData(String s,stud student) {
         admname = s;
@@ -84,6 +103,7 @@ public class ssviewcontroller {
         course.setText(student.course);
         semester.setText(student.semester);
         dob.setText(student.dob);
+        semfilter.setText(student.semester);
         admin ad = new admin();
         try {
             Image img;
@@ -102,6 +122,104 @@ public class ssviewcontroller {
         for (Text attribute : attributes) {
             attribute.setVisible(true);
             attribute.setDisable(false);
+        }
+
+        subcol.setCellValueFactory(new PropertyValueFactory<Marks,String>("subject"));
+        marcol.setCellValueFactory(new PropertyValueFactory<Marks,String>("marks"));
+        subcodecol.setCellValueFactory(new PropertyValueFactory<Marks,String>("subcode"));
+        try {
+
+            ResultSet rs = ad.studentfetch(String.format("SELECT m.exam_type" +
+                    " FROM Marks m" +
+                    " JOIN Subjects sub ON m.subject_code = sub.subject_code" +
+                    " WHERE m.regno = '%s' AND sub.semester = '%s';",student.regno,student.semester));
+            while (rs.next()) {
+                for (int i = 0;i<exams.length;i++) {
+                    if (rs.getString(1).equals(exams[i])) {
+                        examval[i] = 1;
+                    }
+                }
+            }
+            index = 0;
+            for (int i = 0;i<examval.length;i++) {
+                if (examval[i] == 1) {
+                    MenuItem item = new MenuItem(exams[i]);
+                    int finalI = i;
+                    item.setOnAction(event-> {
+                        final String temp = exams[finalI];
+                        examfilter.setText(temp);
+                        manualfilter(item,student);
+                    });
+                    examfilter.getItems().add(item);
+                    index = i;
+                }
+            }
+            examfilter.setText(exams[index]);
+            double sgpaval = student.sgpa(student.regno,student.semester);
+
+            if (examval[0]==1 && examval[1]==1 && examval[2]==1) {
+                sgpa.setText(String.format("SGPA : %.2f",sgpaval));
+            }
+
+            rs = ad.studentfetch(String.format("SELECT sub.subject_name, m.marks_obtained, m.max_marks,sub.subject_code,m.exam_type" +
+                    " FROM Marks m" +
+                    " JOIN Subjects sub ON m.subject_code = sub.subject_code" +
+                    " WHERE m.regno = '%s' AND sub.semester = '%s' AND m.exam_type = '%s';",student.regno,student.semester,exams[index]));
+            String m;
+            while (rs.next()) {
+                m = rs.getInt(2)+"/"+rs.getInt(3);
+                list.add(new Marks(rs.getString(1),m,rs.getString(4)));
+            }
+
+            int sem = Integer.parseInt(student.semester.substring(1));
+            for (int i=1;i<=sem;i++) {
+                final String temp;
+                temp = "S"+i;
+                MenuItem item = new MenuItem(temp);
+                item.setOnAction(event-> {
+                    semfilter.setText(temp);
+                    manualfilter(item,student);
+                });
+                semfilter.getItems().add(item);
+            }
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        table.setItems(list);
+
+    }
+
+    public void manualfilter(MenuItem item,stud student) {
+        admin ad = new admin();
+        try {
+            ResultSet rs;
+            if (item.getText().length()==2) {
+                rs = ad.studentfetch(String.format("SELECT sub.subject_name, m.marks_obtained, m.max_marks,sub.subject_code" +
+                        " FROM Marks m" +
+                        " JOIN Subjects sub ON m.subject_code = sub.subject_code" +
+                        " WHERE m.regno = '%s' AND sub.semester = '%s' AND m.exam_type = '%s';", regno.getText(), item.getText(), examfilter.getText()));
+                double sgpaval = student.sgpa(student.regno,item.getText());
+
+                if (examval[0]==1 && examval[1]==1 && examval[2]==1) {
+                    sgpa.setText(String.format("SGPA : %.2f",sgpaval));
+                }
+
+            } else {
+                rs = ad.studentfetch(String.format("SELECT sub.subject_name, m.marks_obtained, m.max_marks,sub.subject_code" +
+                        " FROM Marks m" +
+                        " JOIN Subjects sub ON m.subject_code = sub.subject_code" +
+                        " WHERE m.regno = '%s' AND sub.semester = '%s' AND m.exam_type = '%s';", regno.getText(), semfilter.getText(), item.getText()));
+            }
+            String m;
+            list.clear();
+            while (rs.next()) {
+                m = rs.getInt(2)+"/"+rs.getInt(3);
+                list.add(new Marks(rs.getString(1),m,rs.getString(4)));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 

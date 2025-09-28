@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -99,6 +102,20 @@
       <Text fx:id="namemain" layoutX="325.0" layoutY="258.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="303.99995930989576">
          <font>
             <Font size="17.0" />
+         </font>
+      </Text>
+      <TableView fx:id="table" layoutX="21.0" layoutY="616.0" prefHeight="213.0" prefWidth="304.0">
+        <columns>
+            <TableColumn fx:id="subcodecol" prefWidth="68.0" text="Code" />
+          <TableColumn fx:id="subcol" prefWidth="174.66665649414062" text="Subject" />
+            <TableColumn fx:id="marcol" prefWidth="60.0" text="Marks" />
+        </columns>
+      </TableView>
+      <MenuButton fx:id="semfilter" layoutX="15.0" layoutY="575.0" mnemonicParsing="false" popupSide="RIGHT" />
+      <MenuButton fx:id="examfilter" layoutX="76.0" layoutY="575.0" mnemonicParsing="false" popupSide="LEFT" />
+      <Text fx:id="sgpa" layoutX="341.0" layoutY="826.0" strokeType="OUTSIDE" strokeWidth="0.0">
+         <font>
+            <Font size="14.0" />
          </font>
       </Text>
    </children>
