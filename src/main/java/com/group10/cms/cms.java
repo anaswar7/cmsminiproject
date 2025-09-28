@@ -116,10 +116,20 @@ class admin {
         }
     }
 
-    public String facultyadd(String staffid,String name,String dob,String branch,String subject) {
+    public String facultyadd(String staffid, String name, String dob, String branch, String subject) {
         try {
             Statement stmt = this.stmt;
-            int rows = stmt.executeUpdate(String.format("insert into faculty(staff_id,name,dob,branch,subject) values('%s','%s','%s','%s','%s');",staffid,name,dob,branch,subject));
+
+            // Insert into faculty table
+            int rows1 = stmt.executeUpdate(String.format(
+                    "INSERT INTO faculty(staff_id, name, dob, branch, subject) VALUES('%s','%s','%s','%s','%s');",
+                    staffid, name, dob, branch, subject));
+
+            // Insert into faculty_credentials table (staff_id used as username, default password set)
+            int rows2 = stmt.executeUpdate(String.format(
+                    "INSERT INTO faculty_credentials(username, password) VALUES('%s', '%s');",
+                    staffid, staffid));   // set staff_id as both username and password
+
             return "";
         } catch (SQLException e) {
             e.printStackTrace();
@@ -170,4 +180,21 @@ class admin {
         }
     }
 }
+
+/*
+// New method to validate faculty login
+    public boolean validateFaculty(String username, String password) {
+        try {
+            String query = "SELECT * FROM faculty_credentials WHERE username=? AND password=?";
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1, username);
+            ps.setString(2, password);
+            ResultSet rs = ps.executeQuery();
+            return rs.next();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+ */
 
