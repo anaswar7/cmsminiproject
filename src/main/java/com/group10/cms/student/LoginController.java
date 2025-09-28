@@ -16,7 +16,7 @@ public class LoginController {
     // Defines the connection details for your MySQL database.
     private static final String DB_URL = "jdbc:mysql://localhost:3306/demo";
     private static final String DB_USERNAME = "root";
-    private static final String DB_PASSWORD = "sql300450";
+    private static final String DB_PASSWORD = "mysqlrootpassword1";
 
     // ... your DB connection strings ...
 

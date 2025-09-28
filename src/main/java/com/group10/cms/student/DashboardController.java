@@ -49,7 +49,7 @@ public class DashboardController {
 
         String dbUrl = "jdbc:mysql://localhost:3306/demo";
         String dbUsername = "root";
-        String dbPassword = "sql300450";
+        String dbPassword = "mysqlrootpassword1";
         String query = "SELECT * FROM student WHERE regno = ?";
 
         try (Connection conn = DriverManager.getConnection(dbUrl, dbUsername, dbPassword);

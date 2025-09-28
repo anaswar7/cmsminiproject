@@ -239,6 +239,7 @@ public class ssviewcontroller {
             Stage stage = (Stage)((Node)e.getSource()).getScene().getWindow();
             FXMLLoader root = new FXMLLoader(getClass().getResource("studentview.fxml"));
             Scene scene = new Scene(root.load());
+            scene.getStylesheets().add(getClass().getResource("studentview.css").toExternalForm());
             studentviewcontroller controller = root.getController();
             controller.initData(this.admname);
             stage.setScene(scene);
