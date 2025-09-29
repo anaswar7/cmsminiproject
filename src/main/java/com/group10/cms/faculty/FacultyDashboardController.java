@@ -23,6 +23,7 @@ public class FacultyDashboardController {
 
     @FXML private Button btnEditProfile;
     @FXML private Button btnLogout;
+    @FXML private Button btnViewStudents;
 
     private FacultyController controller = new FacultyController();
     private String facultyID;
@@ -49,6 +50,7 @@ public class FacultyDashboardController {
 
     @FXML
     private void initialize() {
+        // Edit Profile Button
         btnEditProfile.setOnAction(e -> {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/group10/cms/facultyEdit.fxml"));
@@ -64,11 +66,29 @@ public class FacultyDashboardController {
             }
         });
 
+        // Logout Button
         btnLogout.setOnAction(e -> {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/group10/cms/facultyLogin.fxml"));
                 Stage stage = (Stage) btnLogout.getScene().getWindow();
                 stage.setScene(new Scene(loader.load()));
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
+
+        // View Students Button
+        btnViewStudents.setOnAction(e -> {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/group10/cms/studentView.fxml"));
+                Stage stage = (Stage) btnViewStudents.getScene().getWindow();
+                Scene scene = new Scene(loader.load());
+
+                // Optional: you can pass facultyID if needed for filtering students
+                // StudentViewController studentController = loader.getController();
+                // studentController.setFacultyID(facultyID);
+
+                stage.setScene(scene);
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
