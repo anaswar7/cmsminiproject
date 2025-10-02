@@ -7,8 +7,8 @@ import java.util.Scanner;
 
 class admin {
     String url = "jdbc:mysql://localhost:3306/demo";
-    String user = "root";
-    String password = "mysqlrootpassword1";
+    String user = "evex";
+    String password = "evex07";
     Statement stmt = null;
     Connection connection = null;
     public admin() {
