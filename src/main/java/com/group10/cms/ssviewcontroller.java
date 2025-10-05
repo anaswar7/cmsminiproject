@@ -110,6 +110,8 @@ public class ssviewcontroller {
                 attributeimage.setDisable(true);
                 attributeimage.setVisible(false);
             }
+            deletebut.setDisable(true);
+            deletebut.setVisible(false);
         }
         admin ad = new admin();
         try {
