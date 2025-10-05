@@ -1,5 +1,7 @@
 package com.group10.cms.student;
 
+
+import com.group10.cms.admin;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -9,31 +11,25 @@ import java.sql.*;
 
 public class LoginController {
 
-    @FXML private TextField nameField; // Changed to nameField
+    @FXML private TextField nameField;
     @FXML private PasswordField passwordField;
     @FXML private Label errorLabel;
 
-    // Defines the connection details for your MySQL database.
-    private static final String DB_URL = "jdbc:mysql://localhost:3306/demo";
-    private static final String DB_USERNAME = "evex";
-    private static final String DB_PASSWORD = "evex07";
-
-    // ... your DB connection strings ...
 
     @FXML
     private void handleLogin() {
-        String name = nameField.getText(); // Get text from nameField
+        String name = nameField.getText();
         String password = passwordField.getText();
+        admin ad = new admin();
 
         if (name.isEmpty() || password.isEmpty()) {
             errorLabel.setText("Name and password cannot be empty.");
             return;
         }
 
-        // CHANGE THIS: The query now checks the 'name' column
         String query = "SELECT * FROM student WHERE name = ? AND password = ?";
 
-        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD);
+        try (Connection conn = DriverManager.getConnection(ad.getUrl(), ad.getUser(), ad.getPassword());
              PreparedStatement stmt = conn.prepareStatement(query)) {
 
             stmt.setString(1, name);
@@ -41,9 +37,11 @@ public class LoginController {
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                // Login successful, load dashboard
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("dashboard.fxml"));
                 Scene scene = new Scene(loader.load());
+
+                // --- FIX: Apply the stylesheet to the new dashboard scene ---
+                scene.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
 
                 DashboardController controller = loader.getController();
                 controller.setStudentData(
@@ -63,7 +61,6 @@ public class LoginController {
             } else {
                 errorLabel.setText("Invalid name or password.");
             }
-
         } catch (Exception e) {
             e.printStackTrace();
             errorLabel.setText("Database error.");

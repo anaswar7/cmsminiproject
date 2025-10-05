@@ -1,6 +1,7 @@
-
 package com.group10.cms.student;
 
+
+import com.group10.cms.admin;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -24,9 +25,6 @@ public class EditProfileController {
     private String currentUserRegno;
 
     // --- Database Connection Details ---
-    private static final String DB_URL = "jdbc:mysql://localhost:3306/demo";
-    private static final String DB_USERNAME = "root";
-    private static final String DB_PASSWORD = "sql300450";
 
     /**
      * This method is called by the DashboardController to pass in the
@@ -56,8 +54,8 @@ public class EditProfileController {
             // If the password field has text, we update both address and password.
             sqlQuery = "UPDATE student SET address = ?, password = ? WHERE regno = ?";
         }
-
-        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD);
+        admin ad = new admin();
+        try (Connection conn = DriverManager.getConnection(ad.getUrl(), ad.getUser(), ad.getPassword());
              PreparedStatement stmt = conn.prepareStatement(sqlQuery)) {
 
             // Set the value for the first parameter (address)

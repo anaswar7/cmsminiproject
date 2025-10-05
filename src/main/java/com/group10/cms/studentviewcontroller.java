@@ -1,6 +1,5 @@
 package com.group10.cms;
 
-import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -8,7 +7,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -22,38 +20,27 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ResourceBundle;
 
 public class studentviewcontroller implements Initializable {
-    @FXML
-    TableView<stud> table;
-    @FXML
-    TableColumn<stud,String> regno;
-    @FXML
-    TableColumn<stud,String> name;
-    @FXML
-    TableColumn<stud,Integer> rollno;
-    @FXML
-    TableColumn<stud,String> course;
-    @FXML
-    TableColumn<stud,String> semester;
-    @FXML
-    TableColumn<stud,String> dob;
-    String admname;
-    @FXML
-    TextField ftext = new TextField();
-    @FXML
-    MenuItem fname = new MenuItem();
-    @FXML MenuItem fcourse = new MenuItem();
-    String filter;
-    @FXML CheckBox mc = new CheckBox();
-    @FXML Button back = new Button();
-    Image backimg = new Image("file:src/main/resources/com/group10/cms/images/goback.png");
-    ImageView backimgv = new ImageView(backimg);
+    @FXML private TableView<stud> table;
+    @FXML private TableColumn<stud,String> regno;
+    @FXML private TableColumn<stud,String> name;
+    @FXML private TableColumn<stud,Integer> rollno;
+    @FXML private TableColumn<stud,String> course;
+    @FXML private TableColumn<stud,String> semester;
+    @FXML private TableColumn<stud,String> dob;
+    private String admname;
+    @FXML private TextField ftext;
+    @FXML private MenuItem fname;
+    @FXML private MenuItem fcourse;
+    private String filter;
+    @FXML private CheckBox mc;
+    @FXML private Button back;
+    private final Image backimg = new Image("file:src/main/resources/com/group10/cms/images/goback.png");
+    private final ImageView backimgv = new ImageView(backimg);
 
-    ObservableList<stud> list = FXCollections.observableArrayList(
-            );
+    private final ObservableList<stud> list = FXCollections.observableArrayList();
 
 
     @Override
@@ -80,16 +67,15 @@ public class studentviewcontroller implements Initializable {
         table.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ENTER) {
                 try {
-
-                stud selrec = table.getSelectionModel().getSelectedItem();
-                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                FXMLLoader root = new FXMLLoader(getClass().getResource("singlestudentview.fxml"));
-                Scene scene = new Scene(root.load());
-                stage.setScene(scene);
-                ssviewcontroller controller = root.getController();
-                controller.initData(admname,selrec);
-                stage.show();
-                stage.centerOnScreen();
+                    stud selrec = table.getSelectionModel().getSelectedItem();
+                    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    FXMLLoader root = new FXMLLoader(getClass().getResource("singlestudentview.fxml"));
+                    Scene scene = new Scene(root.load());
+                    stage.setScene(scene);
+                    ssviewcontroller controller = root.getController();
+                    controller.initData(admname,selrec,"admin");
+                    stage.show();
+                    stage.centerOnScreen();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -107,7 +93,8 @@ public class studentviewcontroller implements Initializable {
         this.admname = admname;
     }
 
-    public void goback(ActionEvent e) {
+    @FXML
+    private void goback(ActionEvent e) {
         try {
             Stage stage = (Stage)((Node)e.getSource()).getScene().getWindow();
             FXMLLoader root = new FXMLLoader(getClass().getResource("sessionpage.fxml"));
@@ -122,10 +109,9 @@ public class studentviewcontroller implements Initializable {
         }
     }
 
-    public void filter(String filtercol) {
-        ObservableList<stud> list2 = FXCollections.observableArrayList(
-        );
-        ftext.textProperty().addListener((Observable,oldValue,newValue)-> {
+    private void filter(String filtercol) {
+        ObservableList<stud> list2 = FXCollections.observableArrayList();
+        ftext.textProperty().addListener((observable,oldValue,newValue)-> {
             admin ad = new admin();
             try {
                 ResultSet rs;
@@ -146,7 +132,8 @@ public class studentviewcontroller implements Initializable {
         });
     }
 
-    public void filterenter(KeyEvent e) {
+    @FXML
+    private void filterenter(KeyEvent e) {
         if (e.getCode() == KeyCode.ENTER) {
             ftext.setDisable(true);
             ftext.setVisible(false);
@@ -155,7 +142,8 @@ public class studentviewcontroller implements Initializable {
         }
     }
 
-    public void filterby(ActionEvent e) {
+    @FXML
+    private void filterby(ActionEvent e) {
         mc.setDisable(false);
         mc.setVisible(true);
         ftext.setDisable(false);

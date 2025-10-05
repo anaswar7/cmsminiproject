@@ -1,29 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.group10.cms.student.LoginController"
-            prefWidth="400.0" prefHeight="270.0">
-    <children>
-        <VBox alignment="CENTER" spacing="15.0"
-              AnchorPane.topAnchor="30.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0">
+<?import java.net.URL?>
+<StackPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group10.cms.student.LoginController">
+    <stylesheets>
+        <URL value="@styles.css" />
+    </stylesheets>
+    <VBox alignment="CENTER" maxWidth="400" spacing="20" styleClass="content-pane">
+        <padding>
+            <Insets top="40" right="40" bottom="40" left="40" />
+        </padding>
+        <Label text="Student Portal Login" styleClass="h1" />
 
-            <Label text="Student Login" style="-fx-font-size: 20px; -fx-font-weight: bold;" />
+        <HBox alignment="CENTER_LEFT" spacing="10">
+            <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                <Image url="@icons/user-icon.svg" />
+            </ImageView>
+            <TextField fx:id="nameField" promptText="Name" HBox.hgrow="ALWAYS" />
+        </HBox>
 
-            <TextField fx:id="nameField" promptText="Name" />
+        <HBox alignment="CENTER_LEFT" spacing="10">
+            <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                <Image url="@icons/lock-icon.svg" />
+            </ImageView>
+            <PasswordField fx:id="passwordField" promptText="Password" HBox.hgrow="ALWAYS" />
+        </HBox>
 
-            <PasswordField fx:id="passwordField" promptText="Password" />
-
-            <Button text="Login" onAction="#handleLogin" prefWidth="100.0" style="-fx-padding: 8 15;" />
-
-            <Label fx:id="errorLabel" textFill="red" />
-
-        </VBox>
-    </children>
-</AnchorPane>
+        <Button text="Login" onAction="#handleLogin" prefWidth="200.0" />
+        <Label fx:id="errorLabel" styleClass="error-label" />
+    </VBox>
+</StackPane>

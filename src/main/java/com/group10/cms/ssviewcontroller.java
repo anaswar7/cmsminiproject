@@ -1,5 +1,6 @@
 package com.group10.cms;
 
+import com.group10.cms.student.DashboardController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -7,6 +8,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
@@ -24,68 +27,65 @@ import java.sql.SQLException;
 import java.util.Optional;
 
 public class ssviewcontroller {
-    @FXML
-    TextField regnof = new TextField();
-    @FXML
-    TextField namef = new TextField();
-    @FXML TextField rollnof = new TextField();
-    @FXML TextField coursef = new TextField();
-    @FXML TextField semesterf = new TextField();
-    @FXML TextField dobf = new TextField();
-    @FXML Text regno= new Text();
-    @FXML Text name = new Text();
-    @FXML Text namemain = new Text();
-    @FXML Text rollno = new Text();
-    @FXML Text course = new Text();
-    @FXML Text semester = new Text();
-    @FXML Text dob = new Text();
-    @FXML Text address = new Text();
-    @FXML TextField addressf = new TextField();
-    Text[] attributes;
-    TextField[] attributefields;
-    ImageView[] attributeimages;
-    String admname;
-    String[] columns;
-    @FXML
-    ImageView regnoi = new ImageView();
-    @FXML
-    ImageView namei = new ImageView();
-    @FXML
-    ImageView rollnoi = new ImageView();
-    @FXML
-    ImageView coursei = new ImageView();
-    @FXML
-    ImageView semesteri = new ImageView();
-    @FXML
-    ImageView dobi = new ImageView();
-    @FXML
-    ImageView addressi = new ImageView();
-    @FXML
-    Button deletebut = new Button();
+    @FXML private TextField regnof;
+    @FXML private TextField namef;
+    @FXML private TextField rollnof;
+    @FXML private TextField coursef;
+    @FXML private TextField semesterf;
+    @FXML private TextField dobf;
+    @FXML private Text regno;
+    @FXML private Text name;
+    @FXML private Text namemain;
+    @FXML private Text rollno;
+    @FXML private Text course;
+    @FXML private Text semester;
+    @FXML private Text dob;
+    @FXML private Text address;
+    @FXML private TextField addressf;
+    private Text[] attributes;
+    private TextField[] attributefields;
+    private ImageView[] attributeimages;
+    private String admname;
+    private String[] columns;
+    @FXML private ImageView regnoi;
+    @FXML private ImageView namei;
+    @FXML private ImageView rollnoi;
+    @FXML private ImageView coursei;
+    @FXML private ImageView semesteri;
+    @FXML private ImageView dobi;
+    @FXML private ImageView addressi;
+    @FXML private Button deletebut;
 
-    @FXML
-    Circle profpic = new Circle();
+    @FXML private Circle profpic;
 
-    @FXML
-    TableView<Marks> table;
-    @FXML TableColumn<Marks,String> subcol;
-    @FXML TableColumn<Marks,String> marcol;
-    @FXML TableColumn<Marks,String> subcodecol;
-    @FXML MenuButton semfilter = new MenuButton();
-    @FXML MenuButton examfilter = new MenuButton();
+    @FXML private TableView<Marks> table;
+    @FXML private TableColumn<Marks,String> subcol;
+    @FXML private TableColumn<Marks,String> marcol;
+    @FXML private TableColumn<Marks,String> subcodecol;
+    @FXML private MenuButton semfilter;
+    @FXML private MenuButton examfilter;
 
-    ObservableList<Marks> list = FXCollections.observableArrayList();
-    String[] exams;
-    Integer[] examval;
-    int index;
-    @FXML Text sgpa = new Text();
+    private final ObservableList<Marks> list = FXCollections.observableArrayList();
+    private String[] exams;
+    private Integer[] examval;
+    private int index;
+    @FXML private Text sgpa;
+
+    @FXML private LineChart <String,Double> attchart;
+    private final String[] months = new String[]{"January","February","March","April","May","June","July","August","September","October","November","December"};
+    private int joinyear;
+    private final int currentyear = 2025;
+    @FXML private MenuButton attyear;
+    private String rights;
+    @FXML private Button backbut;
+    private String profpicpath;
 
     public void initialize() {
         columns = new String[]{"regno","name","rollno","course","semester","dob","address"};
         attributes = new Text[]{regno,name,rollno,course,semester,dob,address};
         attributefields = new TextField[]{regnof,namef,rollnof,coursef,semesterf,dobf,addressf};
         attributeimages = new ImageView[]{regnoi,namei,rollnoi,coursei,semesteri,dobi,addressi};
-        Image img = new Image("file:src/main/resources/com/group10/cms/edit.png");
+        Image img = new Image(getClass().getResource("/com/group10/cms/edit.png").toExternalForm());
         for (ImageView attributeimage : attributeimages ) {
             attributeimage.setImage(img);
         }
@@ -94,7 +94,7 @@ public class ssviewcontroller {
     }
 
 
-    public void initData(String s,stud student) {
+    public void initData(String s,stud student, String rights) {
         admname = s;
         regno.setText(student.regno);
         name.setText(student.name);
@@ -104,17 +104,26 @@ public class ssviewcontroller {
         semester.setText(student.semester);
         dob.setText(student.dob);
         semfilter.setText(student.semester);
+        this.rights = rights;
+        if (rights.equals("student")) {
+            for (ImageView attributeimage : attributeimages) {
+                attributeimage.setDisable(true);
+                attributeimage.setVisible(false);
+            }
+        }
         admin ad = new admin();
         try {
             Image img;
-            ResultSet rs = ad.studentfetch(String.format("select address,profpic from student where name = '%s';", student.name));
+            ResultSet rs = ad.studentfetch(String.format("select address,profpic,joining_year from student where name = '%s';", student.name));
             rs.next();
             address.setText(rs.getString(1));
-            if (rs.getString(2) != null) {
-                img = new Image("file:" + rs.getString(2));
+            profpicpath = rs.getString(2);
+            if (rs.getString(2) != null && (getClass().getResource(rs.getString(2))!= null)) {
+                img = new Image(getClass().getResource(rs.getString(2)).toExternalForm());
             } else {
-                img = new Image("file:src/main/resources/com/group10/cms/students/default.jpg");
+                img = new Image(getClass().getResource("/com/group10/cms/students/default.jpg").toExternalForm());
             }
+            joinyear = rs.getInt(3);
             profpic.setFill(new ImagePattern(img));
         } catch (SQLException e) {
             e.printStackTrace();
@@ -127,6 +136,9 @@ public class ssviewcontroller {
         subcol.setCellValueFactory(new PropertyValueFactory<Marks,String>("subject"));
         marcol.setCellValueFactory(new PropertyValueFactory<Marks,String>("marks"));
         subcodecol.setCellValueFactory(new PropertyValueFactory<Marks,String>("subcode"));
+        attchart.getData().clear();
+        attchart.setAnimated(false);
+        XYChart.Series<String,Double> attendance = new XYChart.Series<String, Double>();
         try {
 
             ResultSet rs = ad.studentfetch(String.format("SELECT m.exam_type" +
@@ -183,6 +195,31 @@ public class ssviewcontroller {
                 semfilter.getItems().add(item);
             }
 
+            rs = ad.studentfetch(String.format("SELECT " +
+                    "    r.regno, " +
+                    "YEAR(s.date) AS year, "+
+                    "    MONTH(s.date) AS month, " +
+                    "    ROUND(SUM(CASE WHEN r.status='P' THEN 1 ELSE 0 END) / COUNT(*) * 100, 2) AS attendance_percentage " +
+                    "FROM Attendance r " +
+                    "JOIN Sessions s ON r.attendance_id = s.attendance_id " +
+                    "WHERE r.regno = '%s' AND YEAR(s.date) = %s " +
+                    "GROUP BY r.regno, YEAR(s.date), MONTH(s.date) " +
+                    "ORDER BY r.regno, month;",student.regno,currentyear));
+
+            while (rs.next()) {
+                attendance.getData().add(new XYChart.Data<String,Double>(months[rs.getInt(3)-1],rs.getDouble(4)));
+            }
+            attchart.getData().add(attendance);
+            for (int i=joinyear;i<=currentyear;i++) {
+                final String temp2;
+                temp2 = ""+i;
+                MenuItem item = new MenuItem(temp2);
+                item.setOnAction(event-> {
+                    attyear.setText(temp2);
+                    filteratt(item,student,attendance);
+                });
+                attyear.getItems().add(item);
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -191,7 +228,7 @@ public class ssviewcontroller {
 
     }
 
-    public void manualfilter(MenuItem item,stud student) {
+    private void manualfilter(MenuItem item,stud student) {
         admin ad = new admin();
         try {
             ResultSet rs;
@@ -223,7 +260,33 @@ public class ssviewcontroller {
         }
     }
 
-    public void edit(MouseEvent e) {
+    private void filteratt(MenuItem item, stud student, XYChart.Series<String, Double> attendance) {
+        admin ad = new admin();
+        try {
+            attendance.getData().clear();
+            attchart.getData().clear();
+            ResultSet rs;
+            rs = ad.studentfetch(String.format("SELECT " +
+                    "    r.regno, " +
+                    "YEAR(s.date) AS year, "+
+                    "    MONTH(s.date) AS month, " +
+                    "    ROUND(SUM(CASE WHEN r.status='P' THEN 1 ELSE 0 END) / COUNT(*) * 100, 2) AS attendance_percentage " +
+                    "FROM Attendance r " +
+                    "JOIN Sessions s ON r.attendance_id = s.attendance_id " +
+                    "WHERE r.regno = '%s' AND YEAR(s.date) = %s " +
+                    "GROUP BY r.regno, YEAR(s.date), MONTH(s.date) " +
+                    "ORDER BY r.regno, month;",student.regno,Integer.parseInt(item.getText())));
+            while (rs.next()) {
+                attendance.getData().add(new XYChart.Data<String,Double>(months[rs.getInt(3)-1],rs.getDouble(4)));
+            }
+            attchart.getData().add(attendance);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void edit(MouseEvent e) {
         if (e.getSource() == regnoi) {
             regnof.setVisible(true);
             regnof.setDisable(false);
@@ -272,7 +335,8 @@ public class ssviewcontroller {
         }
     }
 
-    public void editfin(ActionEvent e) {
+    @FXML
+    private void editfin(ActionEvent e) {
         admin ad = new admin();
         String sql;
         int res;
@@ -296,40 +360,41 @@ public class ssviewcontroller {
                 e1.printStackTrace();
             }
         } else {
-        for (int i = 1; i< columns.length;i++) {
-            if (e.getSource() == attributefields[i]) {
-                System.out.println(attributes[i].getText().toLowerCase());
-                sql = "UPDATE student SET "+columns[i]+" = ? WHERE regno = ?;";
-                try (PreparedStatement preparedStatement = ad.connection.prepareStatement(sql)) {
-                    if (e.getSource()!=rollnof) {
-                        preparedStatement.setString(1, attributefields[i].getText());
-                    } else {
-                        preparedStatement.setInt(1, Integer.parseInt(attributefields[i].getText()));
+            for (int i = 1; i< columns.length;i++) {
+                if (e.getSource() == attributefields[i]) {
+                    System.out.println(attributes[i].getText().toLowerCase());
+                    sql = "UPDATE student SET "+columns[i]+" = ? WHERE regno = ?;";
+                    try (PreparedStatement preparedStatement = ad.connection.prepareStatement(sql)) {
+                        if (e.getSource()!=rollnof) {
+                            preparedStatement.setString(1, attributefields[i].getText());
+                        } else {
+                            preparedStatement.setInt(1, Integer.parseInt(attributefields[i].getText()));
+                        }
+                        preparedStatement.setString(2, regno.getText());
+                        res = preparedStatement.executeUpdate();
+                        if (res > 0) {
+                            attributes[i].setVisible(true);
+                            attributes[i].setDisable(false);
+                            attributefields[i].setDisable(true);
+                            attributefields[i].setVisible(false);
+                            attributes[i].setText(attributefields[i].getText());
+                        } else {
+                            System.out.println("failed to update : " + res);
+                        }
+                    } catch (Exception e1) {
+                        e1.printStackTrace();
                     }
-                    preparedStatement.setString(2, regno.getText());
-                    res = preparedStatement.executeUpdate();
-                    if (res > 0) {
-                        attributes[i].setVisible(true);
-                        attributes[i].setDisable(false);
-                        attributefields[i].setDisable(true);
-                        attributefields[i].setVisible(false);
-                        attributes[i].setText(attributefields[i].getText());
-                    } else {
-                        System.out.println("failed to update : " + res);
-                    }
-                } catch (Exception e1) {
-                    e1.printStackTrace();
-                }
 
-            }
-        }}
+                }
+            }}
         for (ImageView attributeimage : attributeimages ) {
             attributeimage.setDisable(false);
             attributeimage.setVisible(true);
         }
     }
 
-    public void delete(ActionEvent e) {
+    @FXML
+    private void delete(ActionEvent e) {
         Alert al = new Alert(Alert.AlertType.CONFIRMATION);
         al.setTitle("Confirmation");
         al.setHeaderText("Are you sure you want to proceed with deletion?");
@@ -352,17 +417,32 @@ public class ssviewcontroller {
             }
         }
     }
-    public void goback(ActionEvent e) {
+    @FXML
+    private void goback(ActionEvent e) {
         try {
-            Stage stage = (Stage)((Node)e.getSource()).getScene().getWindow();
-            FXMLLoader root = new FXMLLoader(getClass().getResource("studentview.fxml"));
-            Scene scene = new Scene(root.load());
-            scene.getStylesheets().add(getClass().getResource("studentview.css").toExternalForm());
-            studentviewcontroller controller = root.getController();
-            controller.initData(this.admname);
-            stage.setScene(scene);
-            stage.show();
-            stage.centerOnScreen();
+            if (rights.equals("admin")) {
+                Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+                FXMLLoader root = new FXMLLoader(getClass().getResource("studentview.fxml"));
+                Scene scene = new Scene(root.load());
+                scene.getStylesheets().add(getClass().getResource("studentview.css").toExternalForm());
+                studentviewcontroller controller = root.getController();
+                controller.initData(this.admname);
+                stage.setScene(scene);
+                stage.show();
+                stage.centerOnScreen();
+            }
+            else {
+                Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+                FXMLLoader root = new FXMLLoader(getClass().getResource("student/dashboard.fxml"));
+                Scene scene = new Scene(root.load());
+                scene.getStylesheets().add(getClass().getResource("student/styles.css").toExternalForm());
+                DashboardController controller = root.getController();
+                controller.setStudentData(regno.getText(),name.getText(),rollno.getText(),course.getText(),semester.getText(),dob.getText(),
+                        address.getText(),profpicpath);
+                stage.setScene(scene);
+                stage.show();
+                stage.centerOnScreen();
+            }
         } catch (IOException e1) {
             e1.printStackTrace();
         }

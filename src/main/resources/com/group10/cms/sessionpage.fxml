@@ -41,7 +41,7 @@
             </Text>
             <AnchorPane fx:id="pane1" layoutX="-7.0" layoutY="-1.0" prefHeight="113.0" prefWidth="964.0" styleClass="sessionpagewelcomebg">
                <children>
-                  <Button layoutX="826.0" layoutY="42.0" mnemonicParsing="false" onAction="#logout" prefHeight="35.0" prefWidth="74.0" text="Logout" />
+                  <Button focusTraversable="false" layoutX="826.0" layoutY="42.0" mnemonicParsing="false" onAction="#logout" prefHeight="35.0" prefWidth="74.0" text="Logout" />
                   <Text fx:id="welcome" fill="#19608d" layoutX="42.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome" wrappingWidth="327.01341247558594">
                      <font>
                         <Font size="29.0" />

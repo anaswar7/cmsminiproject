@@ -5,12 +5,25 @@ import java.sql.*;
 import java.util.Scanner;
 
 
-class admin {
+public class admin {
     String url = "jdbc:mysql://localhost:3306/demo";
     String user = "evex";
     String password = "evex07";
     Statement stmt = null;
     Connection connection = null;
+
+    public String getUrl() {
+        return url;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
     public admin() {
         try {
             this.connection = DriverManager.getConnection(this.url, this.user, this.password);
@@ -23,7 +36,8 @@ class admin {
                     + "semester VARCHAR(2),"
                     + "dob VARCHAR(12),"
                     + "address VARCHAR(100),"
-                    + "profpic VARCHAR(300)"
+                    + "profpic VARCHAR(300),"
+                    + "password VARCHAR(256)"
                     + ")";
 
             this.stmt.executeUpdate(sql);
@@ -50,6 +64,30 @@ class admin {
                     + ")";
 
             this.stmt.executeUpdate(sql);
+
+
+            sql = "CREATE TABLE IF NOT EXISTS Sessions ("
+                    + "attendance_id INT PRIMARY KEY AUTO_INCREMENT,"
+                    + "subject_code VARCHAR(20),"
+                    + "date DATE,"
+                    + "session_no INT,"
+                    + "FOREIGN KEY (subject_code) REFERENCES Subjects(subject_code)"
+                    + ")";
+
+            this.stmt.executeUpdate(sql);
+
+            sql = "CREATE TABLE IF NOT EXISTS Attendance ("
+                    + "record_id INT PRIMARY KEY AUTO_INCREMENT,"
+                    + "attendance_id INT,"
+                    + "regno VARCHAR(20),"
+                    + "status ENUM('P','A','L'),"
+                    + "FOREIGN KEY (attendance_id) REFERENCES Sessions(attendance_id),"
+                    + "FOREIGN KEY (regno) REFERENCES student(regno)"
+                    + ")";
+
+            this.stmt.executeUpdate(sql);
+
+
             sql = "SELECT COUNT(*) AS count FROM Subjects";
             ResultSet rs = stmt.executeQuery(sql);
             if (rs.next() && rs.getInt("count") == 0) {

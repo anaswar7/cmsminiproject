@@ -21,57 +21,37 @@ import java.sql.SQLException;
 import java.util.Optional;
 
 public class sfviewcontroller {
-    @FXML
-    TextField staffidf = new TextField();
-    @FXML
-    TextField namef = new TextField();
-    @FXML
-    TextField branchf = new TextField();
-    @FXML
-    TextField subjectf = new TextField();
-    @FXML
-    TextField dobf = new TextField();
-    @FXML
-    TextField unusedf = new TextField();
+    @FXML private TextField staffidf;
+    @FXML private TextField namef;
+    @FXML private TextField branchf;
+    @FXML private TextField subjectf;
+    @FXML private TextField dobf;
+    @FXML private TextField unusedf;
 
-    @FXML
-    Text staffid = new Text();
-    @FXML
-    Text name = new Text();
-    @FXML Text namemain = new Text();
-    @FXML
-    Text branch = new Text();
-    @FXML
-    Text subject = new Text();
-    @FXML
-    Text dob = new Text();
-    @FXML
-    Text unused = new Text();
+    @FXML private Text staffid;
+    @FXML private Text name;
+    @FXML private Text namemain;
+    @FXML private Text branch;
+    @FXML private Text subject;
+    @FXML private Text dob;
+    @FXML private Text unused;
 
-    Text[] attributes;
-    TextField[] attributefields;
-    ImageView[] attributeimages;
-    String admname;
-    String[] columns;
+    private Text[] attributes;
+    private TextField[] attributefields;
+    private ImageView[] attributeimages;
+    private String admname;
+    private String[] columns;
 
-    @FXML
-    ImageView staffidi = new ImageView();
-    @FXML
-    ImageView namei = new ImageView();
-    @FXML
-    ImageView branchi = new ImageView();
-    @FXML
-    ImageView subjecti = new ImageView();
-    @FXML
-    ImageView dobi = new ImageView();
-    @FXML
-    ImageView unusedi = new ImageView();
+    @FXML private ImageView staffidi;
+    @FXML private ImageView namei;
+    @FXML private ImageView branchi;
+    @FXML private ImageView subjecti;
+    @FXML private ImageView dobi;
+    @FXML private ImageView unusedi;
 
-    @FXML
-    Button deletebut = new Button();
+    @FXML private Button deletebut;
 
-    @FXML
-    Circle profpic = new Circle();
+    @FXML private Circle profpic;
 
 
     public void initialize() {
@@ -104,8 +84,8 @@ public class sfviewcontroller {
             ResultSet rs = ad.studentfetch(String.format("select profpic from faculty where staff_id = '%s';", faculty.getStaffId()));
 
             if (rs.next()) {
-                if (rs.getString(1) != null) {
-                    img = new Image("file:" + rs.getString(1));
+                if (rs.getString(1) != null && (getClass().getResource(rs.getString(1)) != null)) {
+                    img = new Image(getClass().getResource(rs.getString(1)).toExternalForm());
                 } else {
                     img = new Image("file:src/main/resources/com/group10/cms/students/default.jpg");
                 }
@@ -120,7 +100,8 @@ public class sfviewcontroller {
         }
     }
 
-    public void edit(MouseEvent e) {
+    @FXML
+    private void edit(MouseEvent e) {
         if (e.getSource() == staffidi) {
             staffidf.setVisible(true);
             staffidf.setDisable(false);
@@ -158,7 +139,8 @@ public class sfviewcontroller {
         }
     }
 
-    public void editfin(ActionEvent e) {
+    @FXML
+    private void editfin(ActionEvent e) {
         admin ad = new admin();
         String sql;
         int res;
@@ -214,7 +196,8 @@ public class sfviewcontroller {
         }
     }
 
-    public void delete(ActionEvent e) {
+    @FXML
+    private void delete(ActionEvent e) {
         Alert al = new Alert(Alert.AlertType.CONFIRMATION);
         al.setTitle("Confirmation");
         al.setHeaderText("Are you sure you want to proceed with deletion?");
@@ -237,7 +220,9 @@ public class sfviewcontroller {
             }
         }
     }
-    public void goback(ActionEvent e) {
+
+    @FXML
+    private void goback(ActionEvent e) {
         try {
             Stage stage = (Stage)((Node)e.getSource()).getScene().getWindow();
             FXMLLoader root = new FXMLLoader(getClass().getResource("facultyview.fxml"));

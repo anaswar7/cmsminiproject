@@ -18,31 +18,32 @@ import java.io.IOException;
 
 public class loginpagecontroller {
     @FXML
-    PasswordField usernamead = new PasswordField();
+    private PasswordField usernamead = new PasswordField();
     @FXML
-    PasswordField passwordad = new PasswordField();
+    private PasswordField passwordad = new PasswordField();
     @FXML
-    Label loginpagelabel1 = new Label();
+    private Label loginpagelabel1 = new Label();
 
-    public void clearlabel1(MouseEvent e) {
+    @FXML
+    private void clearlabel1(MouseEvent e) {
         loginpagelabel1.setText("");
     }
 
-    public void nextfield(KeyEvent e) {
+    @FXML
+    private void nextfield(KeyEvent e) {
         if (e.getCode() == KeyCode.ENTER) {
             passwordad.requestFocus();
         }
 
     }
-
-    public void credentials(ActionEvent e) {
+    @FXML
+    private void credentials(ActionEvent e) {
         String user = usernamead.getText();
         String pass = passwordad.getText();
         usernamead.clear();
         passwordad.clear();
         admin ad = new admin();
         if (!(ad.adminaut(user,pass))) {
-            System.out.println("WRONG FUCKING PASSWORD");
             loginpagelabel1.setText("Wrong username or password!");
         } else {
             try {

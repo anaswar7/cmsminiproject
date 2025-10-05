@@ -20,7 +20,7 @@ public class main extends Application {
 
     public void start(Stage stage) throws IOException {
         fontloader fl = new fontloader();
-        FXMLLoader root = new FXMLLoader(getClass().getResource("loginpage2.fxml"));
+        FXMLLoader root = new FXMLLoader(getClass().getResource("main.fxml"));
         Scene scene = new Scene(root.load());
         Image img = new Image("file:src/main/resources/com/group10/cms/cms.png");
         stage.getIcons().add(img);

@@ -1,0 +1,54 @@
+/* General styling for all root panes */
+.root {
+    -fx-font-family: 'Inter', sans-serif;
+    -fx-background-image: url('images/background.jpg');
+    -fx-background-size: cover;
+    -fx-background-position: center center;
+}
+
+/* Styling for the main content panes to create a "glassmorphism" effect */
+.content-pane {
+    -fx-background-color: rgba(255, 255, 255, 0.7);
+    -fx-background-radius: 20;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 10, 0.5, 0, 0);
+    -fx-border-radius: 20;
+    -fx-border-color: rgba(255, 255, 255, 0.3);
+    -fx-border-width: 1;
+}
+
+/* Styling for buttons */
+.button {
+    -fx-background-color: #4A90E2;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 10;
+    -fx-padding: 10 20;
+    -fx-cursor: hand;
+}
+.button:hover {
+    -fx-background-color: #357ABD;
+}
+
+/* Styling for text fields and password fields */
+.text-field, .password-field {
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-border-color: #CCCCCC;
+    -fx-padding: 8;
+}
+
+/* Styling for labels */
+.h1 {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+}
+.label-strong {
+    -fx-font-weight: bold;
+    -fx-text-fill: #555555;
+}
+
+.error-label {
+    -fx-text-fill: #D32F2F;
+    -fx-font-weight: bold;
+}
