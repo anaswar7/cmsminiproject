@@ -116,7 +116,7 @@
       </TableView>
       <MenuButton fx:id="semfilter" layoutX="15.0" layoutY="575.0" mnemonicParsing="false" popupSide="RIGHT" />
       <MenuButton fx:id="examfilter" layoutX="76.0" layoutY="575.0" mnemonicParsing="false" popupSide="LEFT" />
-      <Text fx:id="sgpa" layoutX="137.0" layoutY="593.0" strokeType="OUTSIDE" strokeWidth="0.0">
+      <Text fx:id="sgpa" layoutX="169.0" layoutY="593.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="124.0">
          <font>
             <Font size="14.0" />
          </font>

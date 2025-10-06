@@ -55,7 +55,7 @@ public class ssviewcontroller {
     @FXML private ImageView dobi;
     @FXML private ImageView addressi;
     @FXML private Button deletebut;
-
+    private String carry;
     @FXML private Circle profpic;
 
     @FXML private TableView<Marks> table;
@@ -94,7 +94,7 @@ public class ssviewcontroller {
     }
 
 
-    public void initData(String s,stud student, String rights) {
+    public void initData(String s,stud student, String rights,String carry) {
         admname = s;
         regno.setText(student.regno);
         name.setText(student.name);
@@ -104,6 +104,7 @@ public class ssviewcontroller {
         semester.setText(student.semester);
         dob.setText(student.dob);
         semfilter.setText(student.semester);
+        this.carry = carry;
         this.rights = rights;
         if (rights.equals("student")) {
             for (ImageView attributeimage : attributeimages) {
@@ -410,7 +411,7 @@ public class ssviewcontroller {
                 FXMLLoader root = new FXMLLoader(getClass().getResource("studentview.fxml"));
                 Scene scene = new Scene(root.load());
                 studentviewcontroller controller = root.getController();
-                controller.initData(this.admname);
+                controller.initData(this.admname,"admin","");
                 stage.setScene(scene);
                 stage.show();
                 stage.centerOnScreen();
@@ -428,7 +429,7 @@ public class ssviewcontroller {
                 Scene scene = new Scene(root.load());
                 scene.getStylesheets().add(getClass().getResource("studentview.css").toExternalForm());
                 studentviewcontroller controller = root.getController();
-                controller.initData(this.admname);
+                controller.initData(this.admname,"admin",carry);
                 stage.setScene(scene);
                 stage.show();
                 stage.centerOnScreen();

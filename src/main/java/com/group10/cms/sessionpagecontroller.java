@@ -286,7 +286,7 @@ public class sessionpagecontroller {
             Scene scene = new Scene(root.load());
             scene.getStylesheets().add(getClass().getResource("studentview.css").toExternalForm());
             studentviewcontroller controller = root.getController();
-            controller.initData(admname);
+            controller.initData(admname,"admin"," ");
             stage.setScene(scene);
             stage.centerOnScreen();
         } catch (IOException e2) {

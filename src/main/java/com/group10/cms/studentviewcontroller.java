@@ -1,5 +1,6 @@
 package com.group10.cms;
 
+import com.group10.cms.faculty.FacultyDashboardController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -41,6 +42,8 @@ public class studentviewcontroller implements Initializable {
     private final ImageView backimgv = new ImageView(backimg);
 
     private final ObservableList<stud> list = FXCollections.observableArrayList();
+    private String rights;
+    private String user;
 
 
     @Override
@@ -73,7 +76,7 @@ public class studentviewcontroller implements Initializable {
                     Scene scene = new Scene(root.load());
                     stage.setScene(scene);
                     ssviewcontroller controller = root.getController();
-                    controller.initData(admname,selrec,"admin");
+                    controller.initData(admname,selrec,"admin",user);
                     stage.show();
                     stage.centerOnScreen();
                 } catch (IOException e) {
@@ -89,21 +92,35 @@ public class studentviewcontroller implements Initializable {
         back.setGraphic(backimgv);
     }
 
-    public void initData(String admname) {
+    public void initData(String admname, String rights, String user) {
         this.admname = admname;
+        this.rights = rights;
+        this.user = user;
     }
 
     @FXML
     private void goback(ActionEvent e) {
         try {
-            Stage stage = (Stage)((Node)e.getSource()).getScene().getWindow();
-            FXMLLoader root = new FXMLLoader(getClass().getResource("sessionpage.fxml"));
-            Scene scene = new Scene(root.load());
-            sessionpagecontroller controller = root.getController();
-            controller.initData(this.admname);
-            stage.setScene(scene);
-            stage.show();
-            stage.centerOnScreen();
+            if (rights == "admin") {
+                Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+                FXMLLoader root = new FXMLLoader(getClass().getResource("sessionpage.fxml"));
+                Scene scene = new Scene(root.load());
+                sessionpagecontroller controller = root.getController();
+                controller.initData(this.admname);
+                stage.setScene(scene);
+                stage.show();
+                stage.centerOnScreen();
+            }
+            else {
+                Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+                FXMLLoader root = new FXMLLoader(getClass().getResource("facultyDashBoard.fxml"));
+                Scene scene = new Scene(root.load());
+                FacultyDashboardController dashboardController = root.getController();
+                dashboardController.setFacultyID(user);
+                stage.setScene(scene);
+                stage.show();
+                stage.centerOnScreen();
+            }
         } catch (IOException e1) {
             e1.printStackTrace();
         }

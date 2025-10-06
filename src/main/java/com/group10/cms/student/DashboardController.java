@@ -147,7 +147,7 @@ public class DashboardController {
             Scene scene = new Scene(root.load());
             stage.setScene(scene);
             ssviewcontroller controller = root.getController();
-            controller.initData(admname,selrec,"student");
+            controller.initData(admname,selrec,"student","");
             stage.show();
             stage.centerOnScreen();
         } catch (IOException e) {

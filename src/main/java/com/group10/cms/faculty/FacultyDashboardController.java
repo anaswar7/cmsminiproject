@@ -2,6 +2,7 @@ package com.group10.cms.faculty;
 
 import com.group10.cms.FacultyController;
 import com.group10.cms.FacultyEditController;
+import com.group10.cms.studentviewcontroller;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -83,10 +84,9 @@ public class FacultyDashboardController {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/group10/cms/studentView.fxml"));
                 Stage stage = (Stage) btnViewStudents.getScene().getWindow();
                 Scene scene = new Scene(loader.load());
+                studentviewcontroller controller = loader.getController();
+                controller.initData("","faculty",facultyID);
 
-                // Optional: you can pass facultyID if needed for filtering students
-                // StudentViewController studentController = loader.getController();
-                // studentController.setFacultyID(facultyID);
 
                 stage.setScene(scene);
             } catch (IOException ex) {
