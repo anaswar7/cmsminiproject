@@ -2,13 +2,15 @@ package com.group10.cms;
 
 
 import java.sql.*;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 
 public class admin {
     String url = "jdbc:mysql://localhost:3306/demo";
-    String user = "root";
-    String password = "mysqlrootpassword1";
+    String user = "evex";
+    String password = "evex07";
     Statement stmt = null;
     Connection connection = null;
 
@@ -201,6 +203,82 @@ public class admin {
             return null;
         }
     }
+
+    public ArrayList<Subjects> getAllSubjects() {
+        ArrayList<Subjects> subjects = new ArrayList<>();
+
+        String query = "SELECT * FROM subjects ORDER BY subject_name;";
+        try (ResultSet rs = stmt.executeQuery(query)) {
+            while (rs.next()) {
+                subjects.add(new Subjects(
+                        rs.getString("subject_code"),
+                        rs.getString("subject_name"),
+                        rs.getString("semester"),
+                        rs.getString("course"),
+                        rs.getInt("credits")
+                ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return subjects;
+    }
+
+    public ArrayList<Subjects> getAllSubjectssem(String semester) {
+        ArrayList<Subjects> subjects = new ArrayList<>();
+
+        String query = String.format("SELECT * FROM subjects where semester = '%s' ORDER BY subject_name;",semester);
+        try (ResultSet rs = stmt.executeQuery(query)) {
+            while (rs.next()) {
+                subjects.add(new Subjects(
+                        rs.getString("subject_code"),
+                        rs.getString("subject_name"),
+                        rs.getString("semester"),
+                        rs.getString("course"),
+                        rs.getInt("credits")
+                ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return subjects;
+    }
+
+    public int insertSession(String subjectCode, LocalDate date, int sessionNo) {
+        String sql = "INSERT INTO sessions (subject_code, date, session_no) VALUES (?, ?, ?)";
+        try ( // your DB helper
+             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            ps.setString(1, subjectCode);
+            ps.setDate(2, java.sql.Date.valueOf(date));
+            ps.setInt(3, sessionNo);
+            ps.executeUpdate();
+
+            ResultSet rs = ps.getGeneratedKeys();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+
+    public void insertAttendance(int attendanceId, String regno, String status) {
+        String sql = "INSERT INTO attendance (attendance_id, regno, status) VALUES (?, ?, ?)";
+        try (
+             PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, attendanceId);
+            ps.setString(2, regno);
+            ps.setString(3, status);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
 
     public void admain() {

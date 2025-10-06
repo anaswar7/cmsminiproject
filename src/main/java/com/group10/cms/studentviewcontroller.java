@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -15,13 +16,17 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 public class studentviewcontroller implements Initializable {
     @FXML private TableView<stud> table;
@@ -44,7 +49,8 @@ public class studentviewcontroller implements Initializable {
     private final ObservableList<stud> list = FXCollections.observableArrayList();
     private String rights;
     private String user;
-
+    @FXML
+    private Button attbut;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -64,7 +70,6 @@ public class studentviewcontroller implements Initializable {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         table.setItems(list);
         table.setFocusTraversable(true);
         table.setOnKeyPressed(event -> {
@@ -96,12 +101,47 @@ public class studentviewcontroller implements Initializable {
         this.admname = admname;
         this.rights = rights;
         this.user = user;
+        if (rights.equals("faculty")||rights.equals("admin")) {
+            attbut.setVisible(true);
+            attbut.setDisable(false);
+            TableColumn<stud, CheckBox> present = new TableColumn<>("Present");
+            present.setCellValueFactory(new PropertyValueFactory<stud, CheckBox>("present"));
+            present.setPrefWidth(100);
+            dob.setPrefWidth(90);
+            table.getColumns().add(present);
+        }
+    }
+
+    @FXML
+    private void subjectview(ActionEvent event) {
+        ObservableList<stud> allStudents = table.getItems();
+
+        List<stud> selectedStudents = allStudents.stream()
+                .filter(s -> s.getPresent().isSelected())
+                .toList();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("subjectselector.fxml"));
+        Parent root = null;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        subjectselcontroller controller = loader.getController();
+        admin ad = new admin();
+
+        controller.initData(selectedStudents,table);
+        Stage popup = new Stage();
+        popup.setScene(new Scene(root));
+        popup.initModality(Modality.APPLICATION_MODAL);
+        popup.showAndWait();
+
+
     }
 
     @FXML
     private void goback(ActionEvent e) {
         try {
-            if (rights == "admin") {
+            if ((rights == "admin")&&(user == ""||user==" ")) {
                 Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
                 FXMLLoader root = new FXMLLoader(getClass().getResource("sessionpage.fxml"));
                 Scene scene = new Scene(root.load());

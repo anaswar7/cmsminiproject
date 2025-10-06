@@ -1,5 +1,7 @@
 package com.group10.cms;
 
+import javafx.scene.control.CheckBox;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -11,6 +13,7 @@ public class stud{
     String semester;
     String dob;
     double sgpa;
+    private CheckBox present;
 
 
     public stud(String regno, String name, int rollno,String course,String semester,String dob) {
@@ -20,6 +23,7 @@ public class stud{
         this.course = course;
         this.semester = semester;
         this.dob = dob;
+        this.present = new CheckBox();
     }
 
     public String getRegno() {
@@ -128,5 +132,13 @@ public class stud{
             e.printStackTrace();
         }
         return sgpa;
+    }
+
+    public CheckBox getPresent() {
+        return present;
+    }
+
+    public void setPresent(CheckBox present) {
+        this.present = present;
     }
 }

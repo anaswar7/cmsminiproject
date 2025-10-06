@@ -12,14 +12,14 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="844.0" prefWidth="954.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group10.cms.studentviewcontroller">
    <children>
-      <TableView fx:id="table" layoutX="54.0" layoutY="52.0" prefHeight="659.0" prefWidth="847.0">
+      <TableView fx:id="table" layoutX="54.0" layoutY="52.0" prefHeight="659.0" prefWidth="893.0">
         <columns>
           <TableColumn fx:id="regno" prefWidth="117.33328247070312" text="regno" />
           <TableColumn fx:id="name" prefWidth="394.66668701171875" text="name" />
             <TableColumn fx:id="rollno" prefWidth="66.6666259765625" text="rollno" />
             <TableColumn fx:id="course" prefWidth="73.33343505859375" text="course" />
             <TableColumn fx:id="semester" prefWidth="56.6666259765625" text="semester" />
-            <TableColumn fx:id="dob" prefWidth="140.0" text="DOB" />
+            <TableColumn fx:id="dob" prefWidth="181.99995930989587" text="DOB" />
         </columns>
       </TableView>
       <Button fx:id="back" layoutX="783.0" layoutY="762.0" mnemonicParsing="false" onAction="#goback" prefHeight="25.0" prefWidth="122.0" textFill="#2368a6">
@@ -38,5 +38,6 @@
       </MenuButton>
       <TextField fx:id="ftext" disable="true" layoutX="316.0" layoutY="14.0" onKeyPressed="#filterenter" prefHeight="25.0" prefWidth="237.0" visible="false" />
       <CheckBox fx:id="mc" disable="true" layoutX="798.0" layoutY="18.0" mnemonicParsing="false" text="Substing filter" visible="false" />
+      <Button fx:id="attbut" disable="true" layoutX="477.0" layoutY="762.0" mnemonicParsing="false" onAction="#subjectview" text="Mark attendance" visible="false" />
    </children>
 </AnchorPane>
